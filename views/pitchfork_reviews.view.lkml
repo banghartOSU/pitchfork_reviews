@@ -79,9 +79,15 @@ view: pitchfork_reviews {
     type: average
     sql: ${score} ;;
     value_format: "#0.0"
+    html: {{rendered_value}} || {{ album_agg._rendered_value }} ;;
   }
   measure: weighted_average_score {
     sql: ${album_count.weighted_average_score} ;;
+  }
+  measure: album_agg {
+    hidden: yes
+    type: list
+    list_field: album
   }
 }
 
