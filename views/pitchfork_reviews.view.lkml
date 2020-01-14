@@ -17,9 +17,18 @@ view: pitchfork_reviews {
     }
   }
 
+
+  parameter: testy {
+    allowed_value: {label:"1" value: "1"}
+    allowed_value: {label:"2" value:"2"}
+  }
   dimension: artist {
     type: string
     sql: ${TABLE}.artist ;;
+  }
+
+  dimension: constant_test {
+    sql: @{sql_statement} ;;
   }
 
   dimension: author {
@@ -30,6 +39,11 @@ view: pitchfork_reviews {
   dimension: bnm {
     type: number
     sql: ${TABLE}.bnm ;;
+  }
+
+  dimension: test_join {
+    hidden: no
+    sql: @{test_join};;
   }
 
   #DATE FIELDS
@@ -79,7 +93,7 @@ view: pitchfork_reviews {
     type: average
     sql: ${score} ;;
     value_format: "#0.0"
-    html: {{rendered_value}} - {{ album_agg._rendered_value }} ;;
+    html: {{rendered_value}} - {{album_agg._rendered_value}} ;;
   }
   measure: weighted_average_score {
     sql: ${album_count.weighted_average_score} ;;
@@ -94,6 +108,7 @@ view: pitchfork_reviews {
 view: album_count {
   derived_table: {
     explore_source: pitchfork_reviews {
+      column: link  {}
       column: count {}
       column: artist {}
     }
@@ -102,6 +117,7 @@ view: album_count {
     hidden: yes
     type: number
   }
+  dimension: link {}
   dimension: artist {hidden:yes}
 
   #MEASURES
