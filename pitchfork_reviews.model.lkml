@@ -5,9 +5,4 @@ include: "/views/*.view.lkml"                # include all views in the views/ f
 explore: pitchfork_reviews {
   tags: ["TAGS COMING IN"]
   sql_always_where: ${pitchfork_reviews.artist} != "Various Artists" ;;
-  join: album_count {
-    sql_on: ${pitchfork_reviews.test_join}  ;;
-    type: inner
-    relationship: one_to_one
-  }
 }
